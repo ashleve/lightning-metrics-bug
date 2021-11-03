@@ -11,8 +11,6 @@ class MNISTDataModule(LightningDataModule):
         self,
         data_dir: str = "data/",
         batch_size: int = 64,
-        num_workers: int = 0,
-        pin_memory: bool = False,
     ):
         super().__init__()
 
@@ -24,10 +22,6 @@ class MNISTDataModule(LightningDataModule):
 
         self.data_train: Optional[Dataset] = None
         self.data_val: Optional[Dataset] = None
-
-    @property
-    def num_classes(self) -> int:
-        return 10
 
     def prepare_data(self):
         MNIST(self.hparams.data_dir, train=True, download=True)
@@ -41,8 +35,6 @@ class MNISTDataModule(LightningDataModule):
         return DataLoader(
             dataset=self.data_train,
             batch_size=self.hparams.batch_size,
-            num_workers=self.hparams.num_workers,
-            pin_memory=self.hparams.pin_memory,
             shuffle=True,
             drop_last=True,
         )
@@ -51,8 +43,6 @@ class MNISTDataModule(LightningDataModule):
         return DataLoader(
             dataset=self.data_val,
             batch_size=self.hparams.batch_size,
-            num_workers=self.hparams.num_workers,
-            pin_memory=self.hparams.pin_memory,
             shuffle=False,
             drop_last=True,
         )

@@ -1,5 +1,3 @@
-import os
-
 import torch
 
 from pytorch_lightning import LightningModule, Trainer
